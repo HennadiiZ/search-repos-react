@@ -1,22 +1,24 @@
 import classes from './ReposList.module.css';
-import RepoItem from '../CityItem/CityItem';
+import RepoItem from '../RepoItem/RepoItem';
 
 const ReposList = (props) => {
   return (
-    <ul className={classes.list}>
-        { 
-          props.cities.map(item =>(
+    <ul className={classes.repos}>
+      {
+        props.repos.map(item => ( 
           <RepoItem 
-            key={item.id}
+            key={Math.random()}
             id={item.id}
             name={item.name}
-            weather={item.weather}
-            main={item.main}
-            timezone={item.timezone}
-            dt={item.dt}
+            author={item.author}
+            language={item.language}
+            descriptione={item.description}
+            stars={item.stars}
+            watchers={item.watchers}
+            pic={item.pic}
           />
-         ))
-        }
+        ))
+      }
     </ul>
   );
 };
