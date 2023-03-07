@@ -10,12 +10,12 @@ const ReposList = (props) => {
             key={Math.random()}
             id={item.id}
             name={item.name}
-            author={item.author}
+            author={item.owner.login}
             language={item.language}
             description={item.description}
-            stars={item.stars}
+            stars={item.stargazers_count}
             watchers={item.watchers}
-            pic={item.pic}
+            pic={item.owner.avatar_url}
           />
         ))
       }

@@ -20,7 +20,8 @@
 
 .repos_item .left_side {
   min-width: 300px;
-  height: 144px;
+  min-height: 144px;
+  padding-bottom: 10px;
   /* background: rgb(225, 155, 155); */
   display: flex;
   justify-content: flex-start;
@@ -31,8 +32,10 @@
   /* padding: 0px 0px 5% 0px; */
   width: 128px;
   height: 144px;
-  background: rgb(128, 198, 238);
+  /* background: rgb(128, 198, 238); */
   border-radius: 4px;
+  overflow: hidden;
+  /* border: 1px solid transparent; */
 }
 
 .pic_wrapper img {
@@ -46,6 +49,8 @@
 
 .left_side .info_wrapper {
   padding-left: 32px;
+  
+  max-width: 300px
 }
 
 .info_wrapper h3 {
