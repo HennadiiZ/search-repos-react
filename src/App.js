@@ -4,56 +4,9 @@ import ReposList from './components/ReposList/ReposList';
 import SearchInput from './UI/SearchInput/SearchInput';
 
 function App() {
-  const DUMMY_REPOS = [
-    { 
-      name: 'Repo name', 
-      author: 'author', 
-      language: 'language', 
-      description: 'description', 
-      stars: 146, 
-      watchers: 146,
-      id: Math.random(),
-      pic: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
-    },
-    { 
-      name: 'Repo name', 
-      author: 'author', 
-      language: 'language', 
-      description: 'description', 
-      stars: 146, 
-      watchers: 146,
-      id: Math.random(),
-      pic: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
-    },
-    { 
-      name: 'Repo name', 
-      author: 'author', 
-      language: 'language', 
-      description: 'description', 
-      stars: 146, 
-      watchers: 146,
-      id: Math.random(),
-      pic: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg'
-    },
-  ];
-
-
-
   const [results, setResults] = useState([]);
 
   const handleSearch = (query) => {
-    // axios.get(`https://api.github.com/search/repositories?q=${query}`)
-    //   .then((response) => {
-    //     setResults(response.data.items);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-
-
-    console.log(results);
-
-
     fetch(`https://api.github.com/search/repositories?q=${query}`)
     .then((response) => {
       if (!response.ok) {
@@ -73,7 +26,6 @@ function App() {
   return (
     <div className="app">
       <SearchInput onSearch={handleSearch} />
-      {/* <ReposList  repos={DUMMY_REPOS} /> */}
       <ReposList  repos={results} />
     </div>
   );
