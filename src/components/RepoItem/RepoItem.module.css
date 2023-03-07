@@ -10,7 +10,6 @@
   border-radius: 16px;
   filter: drop-shadow(0px 24px 64px rgba(0, 0, 0, 0.04));
   border: 1px solid rgb(245, 127, 127);
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,19 +21,18 @@
 .repos_item .left_side {
   min-width: 300px;
   height: 144px;
-  background: rgb(225, 155, 155);
-
+  /* background: rgb(225, 155, 155); */
   display: flex;
   justify-content: flex-start;
 }
 
 .left_side .pic_wrapper {
-
   position: relative;
   /* padding: 0px 0px 5% 0px; */
-  width: 160px;
-  /* height: 144px; */
+  width: 128px;
+  height: 144px;
   background: rgb(128, 198, 238);
+  border-radius: 4px;
 }
 
 .pic_wrapper img {
@@ -78,7 +76,7 @@
 .repos_item .right_side {
   width: 100px;
   height: 144px;
-  background: rgb(171, 225, 155);
+  /* background: rgb(171, 225, 155); */
 }
 
 .right_side .numbers_wrapper {

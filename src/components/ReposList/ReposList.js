@@ -12,7 +12,7 @@ const ReposList = (props) => {
             name={item.name}
             author={item.author}
             language={item.language}
-            descriptione={item.description}
+            description={item.description}
             stars={item.stars}
             watchers={item.watchers}
             pic={item.pic}

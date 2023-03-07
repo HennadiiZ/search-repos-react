@@ -1,6 +1,7 @@
 import './App.css';
-import React, { useRef } from 'react';
-import ReposList from "./components/ReposList/ReposList";
+// import React, { useRef } from 'react';
+import ReposList from './components/ReposList/ReposList';
+import SearchInput from './UI/SearchInput/SearchInput';
 
 function App() {
 
@@ -37,17 +38,18 @@ function App() {
     },
   ];
 
-  const contentInputRef = useRef(null);
+  // const contentInputRef = useRef(null);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-  };
+  // const submitHandler = (e) => {
+  //   e.preventDefault();
+  // };
 
   return (
     <div className="app">
-      <form className='form' onSubmit={submitHandler}>
+      {/* <form className='form' onSubmit={submitHandler}>
         <input id='text' type='text' placeholder='Search' ref={contentInputRef}/>
-      </form>
+      </form> */}
+      <SearchInput />
       <ReposList  repos={DUMMY_REPOS} />
     </div>
   );
