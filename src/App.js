@@ -10,7 +10,6 @@ function App() {
   const REPOS_AMOUNT = '&per_page=20';
 
   const handleSearch = (query) => {
-    // fetch(`https://api.github.com/search/repositories?q=${query}&per_page=20`)
     fetch(`${URL}${query}${REPOS_AMOUNT}`)
     .then((response) => {
       if (!response.ok) {
@@ -27,8 +26,6 @@ function App() {
     });
   };
 
-  // 
-  
   return (
     <div className="app">
       <SearchInput onSearch={handleSearch} />

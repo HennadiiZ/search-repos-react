@@ -7,7 +7,6 @@ const SearchInput = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
     props.onSearch(query);
   };
 
