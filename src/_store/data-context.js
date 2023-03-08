@@ -4,19 +4,20 @@ const DataContext = React.createContext({
   repos: [],
   totalRepos: 0,
   loading: false,
-  addRepo: (newRepo) => {},
+  findRepo: (query) => {},
 });
 
 export const DataContextProvider = (props) => {
   const [repos, setRepos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [filteredData, setFilteredData] = useState(repos);
+
   const URL = 'https://api.github.com/search/repositories?q=';
   const REPOS_AMOUNT = '&per_page=20';
   
   useEffect(() => {  
     setIsLoading(true);  
-    // fetchRepos(setRepo, setIsLoading); 
     fetch(`${URL}${'react'}${REPOS_AMOUNT}`)
     .then((response) => {
       if (!response.ok) {
@@ -25,24 +26,29 @@ export const DataContextProvider = (props) => {
       return response.json();
     })
     .then((data) => {
-      // setResults(data.items);
       setRepos(data.items);
-      console.log('data.items', data.items)
     })
     .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
     });
   }, []);
 
-  const addRepoHandler = (newRepo) => {
-    // setRepos([...repos, newRepo]);
+  const findRepoHandler = (query) => {
+    // console.log(query);
+    const filteredData = repos.filter((item) =>
+      item.description.toLowerCase().includes(query.toLowerCase())
+    );
+
+    setFilteredData(filteredData);
   };
+
+  console.log(filteredData);
 
   const context= {
     repos: repos, 
     totalRepos: repos.length, 
     loading: isLoading,
-    addRepo: addRepoHandler,
+    findRepo: findRepoHandler,
   };
       
   return (
