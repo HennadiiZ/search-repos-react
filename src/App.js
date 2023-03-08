@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React from 'react';
 import ReposList from './components/ReposList/ReposList';
 import SearchInput from './UI/SearchInput/SearchInput';
 
