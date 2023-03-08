@@ -25,14 +25,9 @@ function App() {
   };
 
   const displayedItems = renderItems(currentPage, SHOW_ITEMS_PER_PAGE);
-  //
 
   return (
     <div className="app">
-      {/* <SearchInput />
-      <ReposList  repos={reposCtx.repos} />
-      <Pagination /> */}
-
       <SearchInput />
       <ReposList  repos={displayedItems} />
       <Pagination
