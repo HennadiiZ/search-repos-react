@@ -8,16 +8,34 @@ const DataContext = React.createContext({
 });
 
 export const DataContextProvider = (props) => {
-  const [repos, setRepo] = useState([]);
+  const [repos, setRepos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const URL = 'https://api.github.com/search/repositories?q=';
+  const REPOS_AMOUNT = '&per_page=20';
   
   useEffect(() => {  
     setIsLoading(true);  
     // fetchRepos(setRepo, setIsLoading); 
+    fetch(`${URL}${'react'}${REPOS_AMOUNT}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // setResults(data.items);
+      setRepos(data.items);
+      console.log('data.items', data.items)
+    })
+    .catch((error) => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
   }, []);
 
   const addRepoHandler = (newRepo) => {
-    setRepo([...repos, newRepo]);
+    // setRepos([...repos, newRepo]);
   };
 
   const context= {
