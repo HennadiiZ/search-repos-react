@@ -18,6 +18,24 @@ export const DataContextProvider = (props) => {
   
   useEffect(() => {  
     setIsLoading(true);  
+    fetchData();
+    // fetch(`${URL}${'react'}${REPOS_AMOUNT}`)
+    // .then((response) => {
+    //   if (!response.ok) {
+    //     throw new Error('Network response was not ok');
+    //   }
+    //   return response.json();
+    // })
+    // .then((data) => {
+    //   setRepos(data.items);
+    // })
+    // .catch((error) => {
+    //   console.error('There was a problem with the fetch operation:', error);
+    // });
+  }, []);
+
+  //
+  const fetchData = () => {
     fetch(`${URL}${'react'}${REPOS_AMOUNT}`)
     .then((response) => {
       if (!response.ok) {
@@ -31,7 +49,8 @@ export const DataContextProvider = (props) => {
     .catch((error) => {
       console.error('There was a problem with the fetch operation:', error);
     });
-  }, []);
+  };
+  //
 
   const findRepoHandler = (query) => {
     // console.log(query);
