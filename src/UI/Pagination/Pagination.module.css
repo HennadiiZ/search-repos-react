@@ -1,0 +1,27 @@
+.pagination {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.pagination li button {
+  text-decoration: none;
+  border: 1px solid transparent;
+  background: transparent;
+  min-width: 30px;
+  height: 30px;
+  /* font-family: 'Archivo'; */
+  font-weight: 600;
+  font-size: 18px;
+  color: #000000;
+  border: 3px solid transparent;
+}
+
+.pagination li.active button {
+  border-bottom: 3px solid #65B79A;
+}
+
+.pagination li button:hover {
+  cursor: pointer;
+}
