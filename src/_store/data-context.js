@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const DataContext = React.createContext({
   repos: [],
@@ -18,19 +19,35 @@ export const DataContextProvider = (props) => {
   
   useEffect(() => {  
     setIsLoading(true);  
-    fetch(`${URL}${'react'}${REPOS_AMOUNT}`)
+
+    // fetch(`${URL}${'react'}${REPOS_AMOUNT}`)
+    // .then((response) => {
+    //   if (!response.ok) {
+    //     throw new Error('Network response was not ok');
+    //   }
+    //   return response.json();
+    // })
+    // .then((data) => {
+    //   setRepos(data.items);
+    // })
+    // .catch((error) => {
+    //   console.error('There was a problem with the fetch operation:', error);
+    // });
+
+    axios.get(`${URL}${'react'}${REPOS_AMOUNT}`)
     .then((response) => {
-      if (!response.ok) {
+      if (!response.status === 200) {
         throw new Error('Network response was not ok');
       }
-      return response.json();
+      return response.data;
     })
     .then((data) => {
       setRepos(data.items);
     })
     .catch((error) => {
-      console.error('There was a problem with the fetch operation:', error);
+      console.error('There was a problem with the axios operation:', error);
     });
+
   }, []);
 
   const findRepoHandler = (query) => {
