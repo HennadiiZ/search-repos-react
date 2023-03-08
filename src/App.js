@@ -9,35 +9,9 @@ import DataContext from './_store/data-context';
 function App() {
   const reposCtx = useContext(DataContext);
 
-  // const [results, setResults] = useState([]);
-
-  // const URL = 'https://api.github.com/search/repositories?q=';
-  // const REPOS_AMOUNT = '&per_page=20';
-
-  // const handleSearch = (query) => {
-  //   // fetch(`${URL}${query}${REPOS_AMOUNT}`)
-  //   // .then((response) => {
-  //   //   if (!response.ok) {
-  //   //     throw new Error('Network response was not ok');
-  //   //   }
-  //   //   return response.json();
-  //   // })
-  //   // .then((data) => {
-  //   //   setResults(data.items);
-  //   //   console.log('data.items', data.items)
-  //   // })
-  //   // .catch((error) => {
-  //   //   console.error('There was a problem with the fetch operation:', error);
-  //   // });
-  // };
-
-  // console.log('reposCtx', reposCtx.repos);
-
   return (
     <div className="app">
-      {/* <SearchInput onSearch={handleSearch} /> */}
       <SearchInput />
-      {/* <ReposList  repos={results} /> */}
       <ReposList  repos={reposCtx.repos} />
     </div>
   );
