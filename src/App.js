@@ -27,6 +27,8 @@ function App() {
     });
   };
 
+  // 
+  
   return (
     <div className="app">
       <SearchInput onSearch={handleSearch} />
