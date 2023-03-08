@@ -10,9 +10,9 @@ import DataContext from './_store/data-context';
 function App() {
   const reposCtx = useContext(DataContext);
 
-  //
+  // pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const SHOW_ITEMS_PER_PAGE = 3;
 
   const renderItems = (currentPage, itemsPerPage) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -24,7 +24,7 @@ function App() {
     setCurrentPage(pageNumber);
   };
 
-  const displayedItems = renderItems(currentPage, itemsPerPage);
+  const displayedItems = renderItems(currentPage, SHOW_ITEMS_PER_PAGE);
   //
 
   return (
@@ -37,7 +37,7 @@ function App() {
       <ReposList  repos={displayedItems} />
       <Pagination
         currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
+        itemsPerPage={SHOW_ITEMS_PER_PAGE}
         totalItems={reposCtx.repos.length}
         onPageChange={handlePageChange}
       />

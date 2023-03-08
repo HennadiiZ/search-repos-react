@@ -2,33 +2,26 @@
   display: flex;
   list-style: none;
   justify-content: center;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 6px;
 }
-
-.pagination li {
-  /* margin-right: 0.5rem; */
-}
-
-
 
 .pagination li button {
-  color: #000;
   text-decoration: none;
-  border: 1px solid #ddd;
-  padding: 0.5rem;
+  border: 1px solid transparent;
+  background: transparent;
+  min-width: 30px;
+  height: 30px;
+  /* font-family: 'Archivo'; */
+  font-weight: 600;
+  font-size: 18px;
+  color: #000000;
+  border: 3px solid transparent;
 }
 
-.page_item.disabled button {
-    color: #aaa;
-    pointer-events: none;
-  }
-
 .pagination li.active button {
-  background-color: #9ea0a3;
-  color: #fff;
+  border-bottom: 3px solid #65B79A;
 }
 
 .pagination li button:hover {
-  background-color: #ddd;
+  cursor: pointer;
 }
