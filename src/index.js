@@ -5,8 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { DataContextProvider } from './_store/data-context';
 
-import { Provider } from 'react-redux';
-import store from './_store/data-context';
+// import { Provider } from 'react-redux';
+// import store from './_store/data-context';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
