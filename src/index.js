@@ -5,6 +5,10 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { DataContextProvider } from './_store/data-context';
 
+import { Provider } from 'react-redux';
+import store from './_store/data-context';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <DataContextProvider>
@@ -12,5 +16,12 @@ root.render(
       <App />
     </React.StrictMode>
   </DataContextProvider>
+
+
+  // <Provider store={store}>
+  //   <React.StrictMode>
+  //     <App />
+  //   </React.StrictMode>
+  // </Provider>
 );
 reportWebVitals();

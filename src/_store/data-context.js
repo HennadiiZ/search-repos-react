@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const DataContext = React.createContext({
   repos: [],
+  filteredRepos: [],
   totalRepos: 0,
   loading: false,
   findRepo: (query) => {},
@@ -12,7 +13,7 @@ export const DataContextProvider = (props) => {
   const [repos, setRepos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [filteredData, setFilteredData] = useState(repos);
+  const [filteredData, setFilteredData] = useState([]);
 
   const URL = 'https://api.github.com/search/repositories?q=';
   const REPOS_AMOUNT = '&per_page=20';
@@ -29,6 +30,9 @@ export const DataContextProvider = (props) => {
     })
     .then((data) => {
       setRepos(data.items);
+
+      setFilteredData(data.items);
+      setIsLoading(false);
     })
     .catch((error) => {
       console.error('There was a problem with the axios operation:', error);
@@ -37,18 +41,17 @@ export const DataContextProvider = (props) => {
   }, []);
 
   const findRepoHandler = (query) => {
-    // console.log(query);
     const filteredData = repos.filter((item) =>
       item.description.toLowerCase().includes(query.toLowerCase())
     );
 
     setFilteredData(filteredData);
   };
-
-  console.log(filteredData);
+  // console.log(filteredData);
 
   const context= {
     repos: repos, 
+    filteredRepos: filteredData,
     totalRepos: repos.length, 
     loading: isLoading,
     findRepo: findRepoHandler,
@@ -62,5 +65,3 @@ export const DataContextProvider = (props) => {
 }
 
 export default DataContext;
-
-// 
