@@ -3,3 +3,9 @@
   margin: 0;
   padding: 0;
 }
+
+.msg_wrapper {
+  text-align: center;
+  padding: 10px;
+  margin: 15px; 
+} 
