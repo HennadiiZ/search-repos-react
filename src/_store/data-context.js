@@ -287,7 +287,7 @@ const initialState = {
   toggle: false
 };
 
-const reposSlice = createSlice({
+export const reposSlice = createSlice({
   name: 'repos',
   initialState: initialState,
   reducers: {
@@ -322,55 +322,6 @@ const reposSlice = createSlice({
 });
 
 
-
-// const reposReducer = ( 
-//   state = initialState, 
-//   action
-//   ) => {
-
-//   if (action.type === 'inc') {
-//     return { 
-//       counter: state.counter + action.amount,
-//       // repos: state.repos, 
-//       // filteredRepos: state.filteredRepos, 
-//       // totalRepos: state.totalRepos, 
-//       loading: state.loading, 
-//     }
-//   }
-
-//   if (action.type === 'dec') {
-//     return { 
-//       counter: state.counter - 1,
-//       loading: state.loading, 
-//     }
-//   }
-
-//   if (action.type === 'toggle') {
-//     return { 
-//       counter: state.counter,
-//       loading: state.loading = !state.loading, 
-//     }
-//   }
-
-//   if (action.type === 'repos') {
-
-    
-//     return { 
-//       counter: state.counter,
-//       loading: state.loading, 
-//     }
-//   }
-
-//   if (action.type === 'filteredRepos') {
-//     return { 
-//       counter: state.counter,
-//       loading: state.loading, 
-//     }
-//   }
-
-//   return state;
-// };
-
 // export const store = createStore(reposReducer);
 
 
@@ -395,7 +346,6 @@ export const fetchRepos = (query) => async (dispatch) => {
 
   try {
     const response = await axios.get(
-      // `https://api.github.com/search/repositories?q=${query}&per_page=20`
       `https://api.github.com/search/repositories?q=react&per_page=20`
       );
     if (response.status !== 200) {
@@ -410,3 +360,16 @@ export const fetchRepos = (query) => async (dispatch) => {
     dispatch(reposSlice.actions.setIsLoading(false));
   }
 };
+
+
+// import { useSelector, useDispatch } from 'react-redux';
+// const repos = useSelector((state) => state.repos);
+// const dispatch = useDispatch();
+
+// export const findRepoHandler = (query) => {
+//   const filteredData = repos.filter((item) =>
+//     item.description.toLowerCase().includes(query.toLowerCase())
+//   );
+
+//   dispatch(reposSlice.actionssetFilteredRepos(filteredData));
+// };

@@ -205,7 +205,7 @@ import SearchInput from './UI/SearchInput/SearchInput';
 import Pagination from './UI/Pagination/Pagination';
 
 import { useContext } from 'react';
-import DataContext, { reposActions, store, fetchRepos} from './_store/data-context'; 
+import DataContext, { reposActions, store, fetchRepos, reposSlice} from './_store/data-context'; 
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -213,18 +213,11 @@ import { useSelector, useDispatch } from 'react-redux';
 // useDispatch - an obj that has properties I add
 
 function App() {
-
-  // -----------------------------------------------------
-  // const dispatch = useDispatch();
-  // const counter = useSelector(state => state.counter ); // 0
-  // const counterState = useSelector(state => state ); // {counter: 0} // {counter: 0, repos: Array(0), filteredRepos: Array(0), totalRepos: 0, loading: false}
-  // const isLoading = useSelector(state => state.loading); // 0
-
   const counter = useSelector(state => state.counter);
-
   const repos = useSelector((state) => state.repos);
   const filteredRepos = useSelector((state) => state.filteredRepos);
-  const isLoading = useSelector((state) => state.toggle);
+  const isLoading = useSelector((state) => state.loading);
+  // const isLoading = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -232,31 +225,26 @@ function App() {
   }, [dispatch]);
 
   const incrChange = () => {
-    // dispatch({type: 'inc', amount: 5}); // reposActions
     dispatch(reposActions.inc());
   };
   const decrChange = () => {
-    // dispatch({type: 'dec'});
     dispatch(reposActions.dec());
   };
   const increaceChange = () => {
-    // dispatch({type: 'increace', amount: 5}); // reposActions
     dispatch(reposActions.increase(5)); // { type: SOME_UNIQUE_IDENTIFIER, payload: 10}
   };
   const toggleChange = () => {
-    // dispatch({type: 'toggle'});
     dispatch(reposActions.toggle());
   };
   // -----------------------------------------------------
 
  
-  console.log('counter', counter);
-  // console.log('counterState', counterState);
+  // console.log('counter', counter);
   console.log('repos', repos);
   console.log('filteredRepos', filteredRepos);
-  console.log('isLoading', isLoading);
+  // console.log('isLoading', isLoading);
 
-  const reposCtx = useContext(DataContext);
+  // const reposCtx = useContext(DataContext);
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
   const SHOW_ITEMS_PER_PAGE = 3;
@@ -264,7 +252,8 @@ function App() {
   const renderItems = (currentPage, itemsPerPage) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return reposCtx.filteredRepos.slice(startIndex, endIndex);
+    // return reposCtx.filteredRepos.slice(startIndex, endIndex);
+    return filteredRepos.slice(startIndex, endIndex);
   };
 
   const handlePageChange = (pageNumber) => {
@@ -273,31 +262,51 @@ function App() {
 
   const displayedItems = renderItems(currentPage, SHOW_ITEMS_PER_PAGE);
 
+  // let reposList = null;
+  // if (reposCtx.loading) {
+  //   reposList = <div className='msg_wrapper'><p>Loading...</p></div>;
+  // } else if (reposCtx.filteredRepos.length > 0) {
+  //   reposList = <ReposList repos={displayedItems} />;
+  // } else {
+  //   reposList = <div className='msg_wrapper'><p>No data found.</p></div>;
+  // }
+
+  const findRepoHandler = (query) => {
+    const filteredData = repos.filter((item) =>
+      item.description.toLowerCase().includes(query.toLowerCase())
+    );
+    dispatch(reposSlice.actions.setFilteredRepos(filteredData));
+    // dispatch(filteredRepos(filteredData));
+  };
+
   let reposList = null;
-  if (reposCtx.loading) {
+  // if (reposCtx.loading) {
+  if (isLoading) {
     reposList = <div className='msg_wrapper'><p>Loading...</p></div>;
-  } else if (reposCtx.filteredRepos.length > 0) {
+  // } else if (reposCtx.filteredRepos.length > 0) {
+  } else if (filteredRepos.length > 0) {
     reposList = <ReposList repos={displayedItems} />;
   } else {
     reposList = <div className='msg_wrapper'><p>No data found.</p></div>;
   }
 
+  
+
   return (
     <div className="app">
-      <SearchInput onSearch={reposCtx.findRepo}/>
-      <div>
-        <button onClick={decrChange}>decr</button>
-        <button onClick={toggleChange}>TOGGLE</button>
-        <button onClick={increaceChange}>increace by 5</button>
-        <button onClick={incrChange}>incr</button>
-        {/* <p>{counter}</p>
-        <p>{isLoading}</p> */}
-      </div>
+      {/* <SearchInput onSearch={reposCtx.findRepo}/> */}
+      <SearchInput onSearch={findRepoHandler}/>
       {reposList}
-      <Pagination
+      {/* <Pagination
         currentPage={currentPage}
         itemsPerPage={SHOW_ITEMS_PER_PAGE}
         totalItems={reposCtx.filteredRepos.length}
+        onPageChange={handlePageChange}
+      /> */}
+      <Pagination
+        currentPage={currentPage}
+        itemsPerPage={SHOW_ITEMS_PER_PAGE}
+        totalItems={filteredRepos.length}
         onPageChange={handlePageChange}
       />
     </div>
