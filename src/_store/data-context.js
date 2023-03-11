@@ -68,7 +68,7 @@
 
 
 import {createStore} from 'redux';
-
+import { createReducer, createSlice, configureStore } from '@reduxjs/toolkit';
 
 
 
@@ -283,55 +283,130 @@ const initialState = {
   counter: 0, 
   repos: [], 
   filteredRepos: [], 
-  totalRepos: 0, 
   loading: false, 
+  toggle: false
 };
 
-const reposReducer = ( 
-  state = initialState, 
-  action
-  ) => {
+const reposSlice = createSlice({
+  name: 'repos',
+  initialState: initialState,
+  reducers: {
+    //--
+    inc: (state, action) => {
+      state.counter++;
+    },
+    dec: (state, action) => {
+      state.counter--;
+    },
+    increase: (state, action) => {
+      // state.counter += +action.amount;
+      // state.counter = state.counter + action.amount;
+      state.counter = state.counter + action.payload;
+    },
+    toggle: (state, action) => {
+      state.toggle = !state.toggle;
+    },
+    //--
+    setRepos: (state, action) => {
+      state.repos = action.payload;
+      state.filteredRepos = action.payload;
+      // state.totalRepos = action.payload.length;
+    },
+    setFilteredRepos: (state, action) => {
+      state.filteredRepos = action.payload;
+    },
+    setIsLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+  },
+});
 
-  if (action.type === 'inc') {
-    return { 
-      counter: state.counter + action.amount,
-      // repos: state.repos, 
-      // filteredRepos: state.filteredRepos, 
-      // totalRepos: state.totalRepos, 
-      loading: state.loading, 
+
+
+// const reposReducer = ( 
+//   state = initialState, 
+//   action
+//   ) => {
+
+//   if (action.type === 'inc') {
+//     return { 
+//       counter: state.counter + action.amount,
+//       // repos: state.repos, 
+//       // filteredRepos: state.filteredRepos, 
+//       // totalRepos: state.totalRepos, 
+//       loading: state.loading, 
+//     }
+//   }
+
+//   if (action.type === 'dec') {
+//     return { 
+//       counter: state.counter - 1,
+//       loading: state.loading, 
+//     }
+//   }
+
+//   if (action.type === 'toggle') {
+//     return { 
+//       counter: state.counter,
+//       loading: state.loading = !state.loading, 
+//     }
+//   }
+
+//   if (action.type === 'repos') {
+
+    
+//     return { 
+//       counter: state.counter,
+//       loading: state.loading, 
+//     }
+//   }
+
+//   if (action.type === 'filteredRepos') {
+//     return { 
+//       counter: state.counter,
+//       loading: state.loading, 
+//     }
+//   }
+
+//   return state;
+// };
+
+// export const store = createStore(reposReducer);
+
+
+// export const store = configureStore(reposSlice.reducer);
+// reposSlice.actions.;
+
+
+// export const { setRepos, setFilteredRepos, setIsLoading, inc, dec, increase, toggle } = reposSlice.actions;
+export const reposActions = reposSlice.actions;
+
+
+
+export const store = configureStore({
+  reducer: reposSlice.reducer
+});
+// export default reposSlice.reducer;
+
+
+
+export const fetchRepos = (query) => async (dispatch) => {
+  dispatch(reposSlice.actions.setIsLoading(true));
+
+  try {
+    const response = await axios.get(
+      // `https://api.github.com/search/repositories?q=${query}&per_page=20`
+      `https://api.github.com/search/repositories?q=react&per_page=20`
+      );
+    if (response.status !== 200) {
+      throw new Error('Network response was not ok');
     }
-  }
 
-  if (action.type === 'dec') {
-    return { 
-      counter: state.counter - 1,
-      loading: state.loading, 
-    }
+    dispatch(reposSlice.actions.setRepos(response.data.items));
+    dispatch(reposSlice.actions.setFilteredRepos(response.data.items));
+  } catch (error) {
+    console.error('There was a problem with the axios operation:', error);
+  } finally {
+    dispatch(reposSlice.actions.setIsLoading(false));
   }
-
-  if (action.type === 'toggle') {
-    return { 
-      counter: state.counter,
-      loading: state.loading = !state.loading, 
-    }
-  }
-
-  if (action.type === 'repos') {
-    return { 
-      counter: state.counter,
-      loading: state.loading, 
-    }
-  }
-
-  if (action.type === 'filteredRepos') {
-    return { 
-      counter: state.counter,
-      loading: state.loading, 
-    }
-  }
-
-  return state;
 };
-
-export const store = createStore(reposReducer);
-

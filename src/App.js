@@ -199,13 +199,13 @@
 
 
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReposList from './components/ReposList/ReposList';
 import SearchInput from './UI/SearchInput/SearchInput';
 import Pagination from './UI/Pagination/Pagination';
 
 import { useContext } from 'react';
-import DataContext from './_store/data-context'; 
+import DataContext, { reposActions, store, fetchRepos} from './_store/data-context'; 
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -214,26 +214,47 @@ import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
 
-  //
+  // -----------------------------------------------------
+  // const dispatch = useDispatch();
+  // const counter = useSelector(state => state.counter ); // 0
+  // const counterState = useSelector(state => state ); // {counter: 0} // {counter: 0, repos: Array(0), filteredRepos: Array(0), totalRepos: 0, loading: false}
+  // const isLoading = useSelector(state => state.loading); // 0
+
+  const counter = useSelector(state => state.counter);
+
+  const repos = useSelector((state) => state.repos);
+  const filteredRepos = useSelector((state) => state.filteredRepos);
+  const isLoading = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
-  const counter = useSelector(state => state.counter ); // 0
-  const counterState = useSelector(state => state ); // {counter: 0} // {counter: 0, repos: Array(0), filteredRepos: Array(0), totalRepos: 0, loading: false}
-  const isLoading = useSelector(state => state.loading); // 0
+
+  useEffect(() => {
+    dispatch(fetchRepos('react'));
+  }, [dispatch]);
 
   const incrChange = () => {
-    dispatch({type: 'inc', amount: 5});
+    // dispatch({type: 'inc', amount: 5}); // reposActions
+    dispatch(reposActions.inc());
   };
   const decrChange = () => {
-    dispatch({type: 'dec'});
+    // dispatch({type: 'dec'});
+    dispatch(reposActions.dec());
+  };
+  const increaceChange = () => {
+    // dispatch({type: 'increace', amount: 5}); // reposActions
+    dispatch(reposActions.increase(5)); // { type: SOME_UNIQUE_IDENTIFIER, payload: 10}
   };
   const toggleChange = () => {
-    dispatch({type: 'toggle'});
+    // dispatch({type: 'toggle'});
+    dispatch(reposActions.toggle());
   };
-  //
+  // -----------------------------------------------------
 
-  console.log('isLoading', isLoading);
-  // console.log('counter', counter);
+ 
+  console.log('counter', counter);
   // console.log('counterState', counterState);
+  console.log('repos', repos);
+  console.log('filteredRepos', filteredRepos);
+  console.log('isLoading', isLoading);
 
   const reposCtx = useContext(DataContext);
   // pagination
@@ -267,9 +288,10 @@ function App() {
       <div>
         <button onClick={decrChange}>decr</button>
         <button onClick={toggleChange}>TOGGLE</button>
+        <button onClick={increaceChange}>increace by 5</button>
         <button onClick={incrChange}>incr</button>
-        <p>{counter}</p>
-        <p>{isLoading}</p>
+        {/* <p>{counter}</p>
+        <p>{isLoading}</p> */}
       </div>
       {reposList}
       <Pagination
