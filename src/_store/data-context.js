@@ -4,7 +4,7 @@ import axios from 'axios';
 const initialState = { 
   repos: [], 
   filteredRepos: [], 
-  loading: false, 
+  isLoading: false, 
 };
 
 export const reposSlice = createSlice({
@@ -49,6 +49,7 @@ export const fetchRepos = (query) => async (dispatch) => {
 
     dispatch(reposSlice.actions.setRepos(response.data.items));
     dispatch(reposSlice.actions.setFilteredRepos(response.data.items));
+   
   } catch (error) {
     console.error('There was a problem with the axios operation:', error);
   } finally {

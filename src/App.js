@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 function App() {
   const repos = useSelector((state) => state.repos);
   const filteredRepos = useSelector((state) => state.filteredRepos);
-  const isLoading = useSelector((state) => state.loading);
+  const isLoading = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,15 +42,8 @@ function App() {
 
 
   let reposList = null;
-  // if (isLoading) {
-  //   reposList = <div className='msg_wrapper'><p>Loading...</p></div>;
-  // } else if (filteredRepos.length > 0) {
-  //   reposList = <ReposList repos={displayedItems} />;
-  // } else {
-  //   reposList = <div className='msg_wrapper'><p>No data found.</p></div>;
-  // }
   
-  if (isLoading || !filteredRepos.length > 0) {
+  if (isLoading) {
     reposList = <div className='msg_wrapper'><p>Loading...</p></div>;
   } else if (filteredRepos.length > 0) {
     reposList = <ReposList repos={displayedItems} />;
