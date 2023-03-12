@@ -5,6 +5,7 @@ import SearchInput from './UI/SearchInput/SearchInput';
 import Pagination from './UI/Pagination/Pagination';
 import { fetchRepos, reposSlice} from './_store/data-context'; 
 import { useSelector, useDispatch } from 'react-redux';
+import Spinner from './UI/Spinner/Spinner';
 
 function App() {
   const repos = useSelector((state) => state.repos);
@@ -44,7 +45,8 @@ function App() {
   let reposList = null;
   
   if (isLoading) {
-    reposList = <div className='msg_wrapper'><p>Loading...</p></div>;
+    // reposList = <div className='msg_wrapper'><p>Loading...</p></div>;
+    reposList = <div className='msg_wrapper'><p><Spinner /></p></div>;
   } else if (filteredRepos.length > 0) {
     reposList = <ReposList repos={displayedItems} />;
   } else {
