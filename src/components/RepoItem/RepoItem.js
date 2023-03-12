@@ -16,16 +16,16 @@ const RepoItem = (props) => {
           <p>{props.language}</p>
           <div>{props.description}</div>
         </div>
-        
+
       </div>
       <div className={classes.right_side}>
         <div className={classes.numbers_wrapper}>
           <p>
-            <img src='../../../public/_man.png'/> 
+            {/* <img src='../../../public/_man.png' alt='man'/>  */}
             {props.stars} <span>stars</span>
           </p>
           <p>
-            <img src='../../../public/_star.png'/> 
+            {/* <img src='../../../public/_star.png' alt='star'/>  */}
             {props.watchers} watchers
           </p>
         </div>
