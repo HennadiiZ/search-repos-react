@@ -1,9 +1,8 @@
 
 .repos_item {
-  margin: 10px 10px 36px;
+  margin: 0 10px 36px;
   width: 100%;
   max-width: 1340px;
-  /* height: 224px; */
   min-height: 224px;
   overflow: hidden;
   background: #FFFFFF;
@@ -16,6 +15,7 @@
   flex-wrap: wrap;
   padding-left: 40px;
   padding-right: 72px;
+  z-index: 0;
 }
 
 .repos_item .left_side {
@@ -79,7 +79,7 @@
 }
 
 .repos_item .right_side {
-  width: 100px;
+  min-width: 100px;
   height: 144px;
   /* background: rgb(171, 225, 155); */
 }
@@ -94,6 +94,10 @@
   font-weight: 600;
   font-size: 16px;
   color: #081F32;
+}
+
+p img {
+  margin-right: 16px;
 }
 
 p span {
