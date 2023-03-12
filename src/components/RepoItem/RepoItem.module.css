@@ -15,27 +15,23 @@
   flex-wrap: wrap;
   padding-left: 40px;
   padding-right: 72px;
-  z-index: 0;
 }
 
 .repos_item .left_side {
   min-width: 300px;
   min-height: 144px;
   padding-bottom: 10px;
-  /* background: rgb(225, 155, 155); */
   display: flex;
   justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .left_side .pic_wrapper {
   position: relative;
-  /* padding: 0px 0px 5% 0px; */
   width: 128px;
   height: 144px;
-  /* background: rgb(128, 198, 238); */
   border-radius: 4px;
   overflow: hidden;
-  /* border: 1px solid transparent; */
 }
 
 .pic_wrapper img {
@@ -49,7 +45,6 @@
 
 .left_side .info_wrapper {
   padding-left: 32px;
-  
   max-width: 300px
 }
 
@@ -81,7 +76,6 @@
 .repos_item .right_side {
   min-width: 100px;
   height: 144px;
-  /* background: rgb(171, 225, 155); */
 }
 
 .right_side .numbers_wrapper {
@@ -102,4 +96,26 @@ p img {
 
 p span {
   color: #6E798C;
+}
+
+@media(max-width: 769px){
+  .repos_item .right_side {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media(max-width: 590px){
+  .repos_item .right_side {
+    width: 100%;
+  }
+
+  .left_side .info_wrapper {
+    max-width: 100%;
+  }
+
+  .repos_item {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
