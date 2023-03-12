@@ -1,8 +1,5 @@
-
-
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 import axios from 'axios';
-
 
 const initialState = { 
   repos: [], 

@@ -6,9 +6,6 @@ import Pagination from './UI/Pagination/Pagination';
 import { fetchRepos, reposSlice} from './_store/data-context'; 
 import { useSelector, useDispatch } from 'react-redux';
 
-// useSelector - this is how I call state
-// useDispatch - an obj that has properties I add
-
 function App() {
   const repos = useSelector((state) => state.repos);
   const filteredRepos = useSelector((state) => state.filteredRepos);
