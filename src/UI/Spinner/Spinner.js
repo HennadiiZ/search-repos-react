@@ -3,7 +3,7 @@ import styles from './Spinner.module.css';
 
 const Spinner = () => {
   return (
-    <div class={styles.lds_spinner}>
+    <div className={styles.lds_spinner}>
       <div>
         </div>
           <div>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ReposList from './components/ReposList/ReposList';
 import SearchInput from './UI/SearchInput/SearchInput';
 import Pagination from './UI/Pagination/Pagination';
-import { fetchRepos, reposSlice} from './_store/data-context'; 
+import { fetchRepos, fetchNewRepos, reposSlice} from './_store/data-context'; 
 import { useSelector, useDispatch } from 'react-redux';
 import Spinner from './UI/Spinner/Spinner';
 
@@ -15,9 +15,12 @@ function App() {
   const isLoading = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
 
+  const [searchQuery, setSearchQuery] = useState(''); //
+
   useEffect(() => {
     dispatch(fetchRepos('react'));
-  }, [dispatch]);
+    // dispatch(fetchNewRepos(searchQuery));
+  }, [dispatch, searchQuery]);
  
   // ----------------------------------------------------- pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -37,10 +40,28 @@ function App() {
   // ----------------------------------------------------- pagination
 
   const findRepoHandler = (query) => {
-    const filteredData = repos.filter((item) =>
-      item.description.toLowerCase().includes(query.toLowerCase())
-    );
-    dispatch(reposSlice.actions.setFilteredRepos(filteredData));
+    
+    // const filteredData = repos.filter((item) =>
+    //   item.description.toLowerCase().includes(query.toLowerCase())
+    // );
+    // dispatch(reposSlice.actions.setFilteredRepos(filteredData));
+
+
+    // const filteredData = repos.filter((item) =>
+    //   item.description.toLowerCase().includes(query.toLowerCase())
+    // );
+    // dispatch(reposSlice.actions.setFilteredRepos(filteredData));
+
+    if (query) {
+      dispatch(fetchNewRepos(query.toLowerCase()));
+    } else {
+      // dispatch(fetchNewRepos(repos));
+      dispatch(fetchRepos('react'));
+    }
+    
+    // dispatch(fetchNewRepos(query.toLowerCase()));
+    // console.log('query', query);
+    // setSearchQuery(query.toLowerCase())
   };
 
 
@@ -48,7 +69,7 @@ function App() {
   
   if (isLoading) {
     // reposList = <div className='msg_wrapper'><p>Loading...</p></div>;
-    reposList = <div className='msg_wrapper'><p><Spinner /></p></div>;
+    reposList = <div className='msg_wrapper'><Spinner /></div>;
   } else if (filteredRepos.length > 0) {
     reposList = <ReposList repos={displayedItems} />;
   } else {
