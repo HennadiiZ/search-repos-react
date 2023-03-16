@@ -6,21 +6,10 @@ const SearchInput = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // console.log('query', query);
     props.onSearch(query);
   };
 
   return (
-    // <form className={classes.form} onBlur={submitHandler}>
-    //   <input 
-    //     id='text' 
-    //     type='text' 
-    //     placeholder='Search' 
-    //     value={query}
-    //     onChange={(event) => setQuery(event.target.value)}
-    //     ref={contentInputRef}
-    //   />
-    // </form>
     <form className={classes.form} onBlur={submitHandler}>
       <input 
         id='text' 

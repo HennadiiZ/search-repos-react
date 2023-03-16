@@ -48,7 +48,6 @@ export const fetchRepos = (query) => async (dispatch) => {
     }
 
     dispatch(reposSlice.actions.setRepos(response.data.items));
-    // dispatch(reposSlice.actions.setFilteredRepos(response.data.items));
    
   } catch (error) {
     console.error('There was a problem with the axios operation:', error);
@@ -58,28 +57,25 @@ export const fetchRepos = (query) => async (dispatch) => {
 };
 
 
-export const fetchNewRepos = (query) => async (dispatch) => {
-  dispatch(reposSlice.actions.setIsLoading(true));
+// export const fetchNewRepos = (query) => async (dispatch) => {
+//   dispatch(reposSlice.actions.setIsLoading(true));
 
-  try {
-    const response = await axios.get(
-      // `https://api.github.com/search/repositories?q=react&per_page=20`
-      `https://api.github.com/search/repositories?q=${query}`
-      );
-    if (response.status !== 200) {
-      throw new Error('Network response was not ok');
-    }
-
-    console.log(response.data.items);
-    // dispatch(reposSlice.actions.setRepos(response.data.items));
-    dispatch(reposSlice.actions.setFilteredRepos(response.data.items));
+//   try {
+//     const response = await axios.get(
+//       `https://api.github.com/search/repositories?q=${query}&per_page=20`
+//       );
+//     if (response.status !== 200) {
+//       throw new Error('Network response was not ok');
+//     }
+//     // dispatch(reposSlice.actions.setFilteredRepos(response.data.items)); // --------------------
+//     dispatch(reposSlice.actions.setRepos(response.data.items));
    
-  } catch (error) {
-    console.error('There was a problem with the axios operation:', error);
-  } finally {
-    dispatch(reposSlice.actions.setIsLoading(false));
-  }
-};
+//   } catch (error) {
+//     console.error('There was a problem with the axios operation:', error);
+//   } finally {
+//     dispatch(reposSlice.actions.setIsLoading(false));
+//   }
+// };
 
 
 

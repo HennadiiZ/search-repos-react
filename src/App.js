@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import ReposList from './components/ReposList/ReposList';
 import SearchInput from './UI/SearchInput/SearchInput';
 import Pagination from './UI/Pagination/Pagination';
-import { fetchRepos, fetchNewRepos, reposSlice} from './_store/data-context'; 
+// import { fetchRepos, fetchNewRepos } from './_store/data-context'; 
+import { fetchRepos } from './_store/data-context'; 
 import { useSelector, useDispatch } from 'react-redux';
 import Spinner from './UI/Spinner/Spinner';
 
@@ -15,12 +16,10 @@ function App() {
   const isLoading = useSelector((state) => state.isLoading);
   const dispatch = useDispatch();
 
-  const [searchQuery, setSearchQuery] = useState(''); //
 
   useEffect(() => {
     dispatch(fetchRepos('react'));
-    // dispatch(fetchNewRepos(searchQuery));
-  }, [dispatch, searchQuery]);
+  }, [dispatch]);
  
   // ----------------------------------------------------- pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,7 +28,8 @@ function App() {
   const renderItems = (currentPage, itemsPerPage) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    return filteredRepos.slice(startIndex, endIndex);
+    // return filteredRepos.slice(startIndex, endIndex);
+    return repos.slice(startIndex, endIndex);
   };
 
   const handlePageChange = (pageNumber) => {
@@ -40,50 +40,45 @@ function App() {
   // ----------------------------------------------------- pagination
 
   const findRepoHandler = (query) => {
-    
-    // const filteredData = repos.filter((item) =>
-    //   item.description.toLowerCase().includes(query.toLowerCase())
-    // );
-    // dispatch(reposSlice.actions.setFilteredRepos(filteredData));
-
-
-    // const filteredData = repos.filter((item) =>
-    //   item.description.toLowerCase().includes(query.toLowerCase())
-    // );
-    // dispatch(reposSlice.actions.setFilteredRepos(filteredData));
-
     if (query) {
-      dispatch(fetchNewRepos(query.toLowerCase()));
+      // dispatch(fetchNewRepos(query.toLowerCase()));
+      dispatch(fetchRepos(query.toLowerCase()));
     } else {
-      // dispatch(fetchNewRepos(repos));
       dispatch(fetchRepos('react'));
     }
-    
-    // dispatch(fetchNewRepos(query.toLowerCase()));
-    // console.log('query', query);
-    // setSearchQuery(query.toLowerCase())
   };
 
 
   let reposList = null;
   
   if (isLoading) {
-    // reposList = <div className='msg_wrapper'><p>Loading...</p></div>;
     reposList = <div className='msg_wrapper'><Spinner /></div>;
-  } else if (filteredRepos.length > 0) {
+  // } else if (filteredRepos.length > 0) {
+  } else if (repos.length > 0) {
     reposList = <ReposList repos={displayedItems} />;
   } else {
-    reposList = <div className='msg_wrapper'><p>No data found.</p></div>;
+    reposList = <div className='msg_wrapper'><p>По Вашому запиту не знайдено жодного репозиторія.</p></div>;
   }
 
   return (
+    // <div className="app">
+    //   <SearchInput onSearch={findRepoHandler}/>
+    //   {reposList}
+    //   <Pagination
+    //     currentPage={currentPage}
+    //     itemsPerPage={SHOW_ITEMS_PER_PAGE}
+    //     totalItems={filteredRepos.length}
+    //     onPageChange={handlePageChange}
+    //   />
+    // </div>
+
     <div className="app">
       <SearchInput onSearch={findRepoHandler}/>
       {reposList}
       <Pagination
         currentPage={currentPage}
         itemsPerPage={SHOW_ITEMS_PER_PAGE}
-        totalItems={filteredRepos.length}
+        totalItems={repos.length}
         onPageChange={handlePageChange}
       />
     </div>
@@ -92,7 +87,6 @@ function App() {
 
 export default App;
 
-//
 
 
 
