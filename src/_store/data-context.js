@@ -36,12 +36,42 @@ export default store;
 
 
 
+// export const fetchRepos = (query) => async (dispatch) => {
+//   dispatch(reposSlice.actions.setIsLoading(true));
+
+//   try {
+//     const response = await axios.get(
+//       `https://api.github.com/search/repositories?q=${query}&per_page=20`
+//       );
+//     if (response.status !== 200) {
+//       throw new Error('Network response was not ok');
+//     }
+
+//     dispatch(reposSlice.actions.setRepos(response.data.items));
+   
+//   } catch (error) {
+//     console.error('There was a problem with the axios operation:', error);
+//   } finally {
+//     dispatch(reposSlice.actions.setIsLoading(false));
+//   }
+// };
+
 export const fetchRepos = (query) => async (dispatch) => {
+
+  let URL;
+
+  if (query === 'react') {
+    URL = `https://api.github.com/search/repositories?q=${query}&per_page=20`
+  } else {
+    URL = `https://api.github.com/search/repositories?q=${query}`
+  }
+
   dispatch(reposSlice.actions.setIsLoading(true));
 
   try {
     const response = await axios.get(
-      `https://api.github.com/search/repositories?q=${query}&per_page=20`
+      // `https://api.github.com/search/repositories?q=${query}&per_page=20`
+      URL
       );
     if (response.status !== 200) {
       throw new Error('Network response was not ok');
@@ -55,6 +85,21 @@ export const fetchRepos = (query) => async (dispatch) => {
     dispatch(reposSlice.actions.setIsLoading(false));
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // export const fetchNewRepos = (query) => async (dispatch) => {
